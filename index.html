@@ -21,10 +21,40 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="//db.onlinewebfonts.com/c/a1caa95569aad7c1dd438b6b57c41c3d?family=Greycliff+CF+Extra+Bold" rel="stylesheet" type="text/css"/> 
+  <link href="https://www.cssfontstack.com/Garamond" rel="stylesheet" type="text/css"/>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/hen-clipart-blue-hen-3.png">
+   <!--Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<style>
+  
+body{
+  background: conic-gradient(from 75deg at bottom right, cyan, rebeccapurple);
+}
+h1{
+  font-family: "Greycliff CF Extra Bold";
+  color: white;
+}
+h4{
+  font-family: Garmond;
+  color: white;
+}
+label{
+  font-family: Garmond;
+  font-size: large;
+  color: white;
+}
+table, th, td{
+    color: white;
+   width: 75%;
+   margin-left: auto;
+   margin-right: auto;
+}
+</style>
 
 </head>
 <body>
@@ -32,15 +62,32 @@
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <div class="row">
-      <div class="one-half column" style="margin-top: 25%">
-        <h4>Bluehen Meal Search</h4>    
-        <label for="str">Search...</label>
-        <input type="text" id="str" name="str_name">
-      </div>
-    </div>
+    <section class="search">
+      <h1>Bluehen Meal Search</h1>    
+      <label for="str">Search...</label>
+      <input type="text" id="str" name="str_name">
+    </section>
   </div>
 
+  <div class="container">
+    <section class = "pre-results">
+       <h4>Results:</h4>
+       <table>
+        <tr>
+          <th>Item</th>
+          <th>Dining Hall</th> 
+        </tr>
+        <tr>
+          <td>Chicken Salad</td>
+          <td>Pencader</td>
+        </tr>
+        <tr>
+          <td>Chicken Cacciatore</td>
+          <td>Caesar Rodney</td>
+        </tr>
+      </table>
+    </section>
+  </div>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
