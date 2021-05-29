@@ -77,16 +77,27 @@ table, th, td{
           <th>Item</th>
           <th>Dining Hall</th> 
         </tr>
-        <tbody id = meal table>
+        <tbody id = "meal table">
 
         </tbody>
       </table>
     </section>
   </div>
   <script>
+    //FIXME: replace with meal scraper JSON later.
     var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}]
+
+    buildTable(meal_array)
+
     function buildTable(input){
-      
+      var meal_table = document.getElementById('meal table')
+      for (var i = 0; i < input.length; i++) {
+        var row =`<tr>
+                    <td>${input[i].name}</td>
+                    <td>${input[i].location}</td>
+                  </tr>`
+        meal_table.innerHTML += row
+      }
     }
   </script>
 <!-- End Document
