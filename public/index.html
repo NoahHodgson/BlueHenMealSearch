@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <!-- Basic Page Needs
@@ -19,79 +20,108 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link href="//db.onlinewebfonts.com/c/a1caa95569aad7c1dd438b6b57c41c3d?family=Greycliff+CF+Extra+Bold" rel="stylesheet" type="text/css"/> 
-  <link href="https://www.cssfontstack.com/Garamond" rel="stylesheet" type="text/css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <link href="//db.onlinewebfonts.com/c/a1caa95569aad7c1dd438b6b57c41c3d?family=Greycliff+CF+Extra+Bold"
+    rel="stylesheet" type="text/css" />
+  <link href="https://www.cssfontstack.com/Garamond" rel="stylesheet" type="text/css" />
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/images/hen-clipart-blue-hen-3.png">
-   <!--Style
+  <!--Style
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<style>
-  
-body{
-  background: conic-gradient(from 75deg at bottom right, cyan, #00539F);
-}
-h1{
-  font-family: "Greycliff CF Extra Bold";
-  color: #FFD100;
-}
-h4{
-  font-family: Garmond;
-  color: yellow;
-}
-label{
-  font-family: Garmond;
-  font-size: large;
-  color: white;
-}
-table, th, td{
-    color: white;
-   width: 75%;
-   margin-left: auto;
-   margin-right: auto;
-}
-</style>
+  <style>
+    body {
+      background: conic-gradient(from 75deg at bottom right, cyan, #00539F);
+    }
+
+    h1 {
+      font-family: "Greycliff CF Extra Bold";
+      color: #FFD100;
+    }
+
+    h4 {
+      color: yellow;
+    }
+
+    label {
+      font-size: large;
+      color: white;
+    }
+
+    table,
+    th,
+    td {
+      color: white;
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 
 </head>
-<body>
+
+<body onload="startTable();">
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <section class="search">
-      <img src = "/images/BHMS_Banner.png" alt = "Blue Hen Meal Search" style="width: 80%">    
-      <label for="str">Search...</label>
-      <input type="search" id="str" name="str_name" onchange="buildTable();">
-    </section>
+    <div class="col">
+      <section class="search">
+        <div class="row">
+          <img src="/images/BHMS_Banner.png" alt="Blue Hen Meal Search">
+        </div>
+        <div class="row" style="padding-top: 30px;" style="margin-left: 50%;">
+          <div class="col"></div>
+          <div class="col" style="text-align: right;">
+            <h4>Search:</h4>
+          </div>
+          <div class="col"><input type="search" id="str" name="str_name" onkeypress="buildTable();"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+      </section>
+      <section class="pre-results" style="padding-top: 20px;">
+        <h4 style="text-align: center;">Results:</h4>
+        <table>
+          <tr>
+            <th>Item</th>
+            <th>Dining Hall</th>
+          </tr>
+          <tbody id="meal table"></tbody>
+        </table>
+      </section>
+    </div>
   </div>
 
-  <div class="container">
-    <section class = "pre-results">
-       <h4>Results:</h4>
-       <table>
-        <tr>
-          <th>Item</th>
-          <th>Dining Hall</th> 
-        </tr>
-        <tbody id = "meal table"></tbody>
-      </table>
-    </section>
-  </div>
   <script>
     //FIXME: replace with meal scraper JSON later.
-    var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}]
+    var meal_array = [{ 'name': 'Chicken Salad', 'location': 'Pencader' }, { 'name': 'Chicken Parm', 'location': 'Pencader' }]
 
-    function buildTable(){
+    function buildTable() {
       var meal_table = document.getElementById('meal table')
       var search = document.getElementById('str').value
       meal_table.innerHTML = ""
       for (var i = 0; i < meal_array.length; i++) {
-        if(meal_array[i].name.toLowerCase().includes(search.toLowerCase())){
-          row =`<tr>
+        if (meal_array[i].name.toLowerCase().includes(search.toLowerCase()) && i < 50) {
+          row = `<tr>
+                      <td>${meal_array[i].name}</td>
+                      <td>${meal_array[i].location}</td>
+                    </tr>`
+          meal_table.innerHTML += row
+        }
+      }
+    }
+    function startTable() {
+      var meal_table = document.getElementById('meal table')
+      meal_table.innerHTML = ""
+      for (var i = 0; i < meal_array.length; i++) {
+        if (i < 50) {
+          row = `<tr>
                       <td>${meal_array[i].name}</td>
                       <td>${meal_array[i].location}</td>
                     </tr>`
@@ -100,7 +130,8 @@ table, th, td{
       }
     }
   </script>
-<!-- End Document
+  <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+
 </html>
