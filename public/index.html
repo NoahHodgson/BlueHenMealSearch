@@ -65,7 +65,7 @@ table, th, td{
     <section class="search">
       <img src = "/images/BHMS_Banner.png" alt = "Blue Hen Meal Search" style="width: 80%">    
       <label for="str">Search...</label>
-      <input type="text" id="str" name="str_name">
+      <input type="search" id="str" name="str_name" onchange="buildTable();">
     </section>
   </div>
 
@@ -77,9 +77,7 @@ table, th, td{
           <th>Item</th>
           <th>Dining Hall</th> 
         </tr>
-        <tbody id = "meal table">
-
-        </tbody>
+        <tbody id = "meal table"></tbody>
       </table>
     </section>
   </div>
@@ -87,16 +85,18 @@ table, th, td{
     //FIXME: replace with meal scraper JSON later.
     var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}]
 
-    buildTable(meal_array)
-
-    function buildTable(input){
+    function buildTable(){
       var meal_table = document.getElementById('meal table')
-      for (var i = 0; i < input.length; i++) {
-        var row =`<tr>
-                    <td>${input[i].name}</td>
-                    <td>${input[i].location}</td>
-                  </tr>`
-        meal_table.innerHTML += row
+      var search = document.getElementById('str').value
+      meal_table.innerHTML = ""
+      for (var i = 0; i < meal_array.length; i++) {
+        if(meal_array[i].name.toLowerCase().includes(search.toLowerCase())){
+          row =`<tr>
+                      <td>${meal_array[i].name}</td>
+                      <td>${meal_array[i].location}</td>
+                    </tr>`
+          meal_table.innerHTML += row
+        }
       }
     }
   </script>
