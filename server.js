@@ -1,47 +1,47 @@
-//var http = require('http');  
-//var fs = require('fs');  
-const {PythonShell} = require('python-shell');
-const {spawn} = require('child_process');
-
-function callScraper(){
-    const python = spawn('python',['/MealScraper/main.py']);
-    python.stdout.on('data', function(data)  {
-        console.log("Getting data from python script");
-        console.log(data);
-    })
-}
-
-var express = require("express");
-var app = new express();
+const express = require('express');
+const app = express();
+const http = require('http');
 var publicDir = require('path').join(__dirname,'/public');
-app.use(express.static(publicDir));
+app.use('/static', express.static(publicDir));
+const server = http.createServer(app);
 
-app.get('/',function(request,response){
-    console.log("In request");
-    response.sendFile("/public/index.html");
-    PythonShell.run(test.py, null,  function (err){
-    if (err){
-        throw err;
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+const csv = require('csvtojson');
+
+
+
+
+
+
+
+
+
+
+app.get('/', (req, res) => {
+    try{
+        res.sendFile(publicDir + "/index.html");
+        //res.send("<p>This is a test</p>");
     }
-    console.log('finished');
-
-    });
-
-
+    catch(err){
+        res.send('<p>404: Page Not Found</p>');
+        console.log(err);
+    }
 });
 
-app.listen(8000);
-console.log("After listen");
-let options = {
-    mode: 'text',
-    //pythonPath: '',
-    pythonOptions: ['-u'],
-    scriptPath: 'MealScraper/'
-};
-    PythonShell.run("main.py",options,  function (err, results){
-    if (err){
-        throw err;
-    }
-    console.log(results);
-})
-    console.log('finished');
+io.on('connection', (socket) =>{
+    console.log("A user connected.");
+    socket.on('disconnect', () =>{
+        console.log('A user disconnected. ');
+    });
+    socket.on('mealRequest', (msg)=>{
+        console.log("mealRequest has been called");
+        socket.emit("meals", [{ 'name': 'Chicken Salad1', 'location': 'Pencader1' }, { 'name': 'Chicken Parm1', 'location': 'Pencader1' }]);
+
+    });
+});
+
+server.listen(3000, () =>{
+    console.log("Listening on 3000");
+});
