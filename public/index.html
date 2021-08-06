@@ -33,18 +33,15 @@
 <style>
   
 body{
-  background: conic-gradient(from 75deg at bottom right, cyan, #00539F);
+  background: conic-gradient(from 50deg at bottom right, cyan, #00539F);
 }
 h1{
-  font-family: "Greycliff CF Extra Bold";
   color: #FFD100;
 }
 h4{
-  font-family: Garmond;
   color: yellow;
 }
 label{
-  font-family: Garmond;
   font-size: large;
   color: white;
 }
@@ -61,13 +58,15 @@ table, th, td{
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
     <section class="search">
-      <img src = "/images/BHMS_Banner.png" alt = "Blue Hen Meal Search" style="width: 80%">    
+      <nav class="navbar navbar-light bg-primary" style="background-color:#004aad; padding-top: 2.5%;">
+        <a class="navbar-brand" href="">
+          <img src="images/BHMS_Banner.png" alt="" style="width: 40%;">
+        </a>
+      </nav>
       <label for="str">Search...</label>
-      <input type="search" id="str" name="str_name" onchange="buildTable();">
+      <input type="search" id="str" name="str_name" onkeypress="buildTable();">
     </section>
-  </div>
 
   <div class="container">
     <section class = "pre-results">
