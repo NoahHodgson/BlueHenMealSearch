@@ -31,7 +31,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/hen-clipart-blue-hen-3.png">
+  <link rel="icon" type="image/png" href="/static/images/hen-clipart-blue-hen-3.png">
   <!--Style
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <style>
@@ -73,7 +73,7 @@
     <div class="col">
       <section class="search">
         <div class="row">
-          <img src="/images/BHMS_Banner.png" alt="Blue Hen Meal Search">
+          <img src="/static/images/BHMS_Banner.png" alt="Blue Hen Meal Search">
         </div>
         <div class="row" style="padding-top: 30px;" style="margin-left: 50%;">
           <div class="col"></div>
@@ -98,7 +98,24 @@
     </div>
   </div>
 
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js">
+</script>
+
   <script>
+     window.addEventListener('load', (event) =>{
+      socket.emit('mealRequest' , 'temp');
+    });
+
+    //import * as io from "/static/socket.io/socket.io.js";
+    var socket = io();
+    socket.on("meals", function(msg){
+      meal_array = msg;
+      buildTable();
+    });
+
+  
+
+
     //FIXME: replace with meal scraper JSON later.
     var meal_array = [{ 'name': 'Chicken Salad', 'location': 'Pencader' }, { 'name': 'Chicken Parm', 'location': 'Pencader' }]
 
