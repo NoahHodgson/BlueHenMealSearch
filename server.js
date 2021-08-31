@@ -1,47 +1,30 @@
-const express = require('express');
-const app = express();
-const http = require('http');
+//var http = require('http');  
+//var fs = require('fs');  
+var express = require("express");
+const {spawn} = require("child_process");
+port = 8000
+
+
+
+
+var app = new express();
 var publicDir = require('path').join(__dirname,'/public');
-app.use('/static', express.static(publicDir));
-const server = http.createServer(app);
+app.use(express.static(publicDir));
 
-const { Server } = require("socket.io");
-const io = new Server(server);
+app.get('/',function(request,response){
+    response.sendFile("/public/index.html");
 
-const csv = require('csvtojson');
-
-
-
-
-
-
-
-
-
-
-app.get('/', (req, res) => {
-    try{
-        res.sendFile(publicDir + "/index.html");
-        //res.send("<p>This is a test</p>");
-    }
-    catch(err){
-        res.send('<p>404: Page Not Found</p>');
-        console.log(err);
-    }
 });
 
-io.on('connection', (socket) =>{
-    console.log("A user connected.");
-    socket.on('disconnect', () =>{
-        console.log('A user disconnected. ');
-    });
-    socket.on('mealRequest', (msg)=>{
-        console.log("mealRequest has been called");
-        socket.emit("meals", [{ 'name': 'Chicken Salad1', 'location': 'Pencader1' }, { 'name': 'Chicken Parm1', 'location': 'Pencader1' }]);
-
-    });
+var dataToSend;
+const python = spawn("python", [""]);
+python.stdout.on("data", function (data) {
+    console.log();
+    dataToSend = data.toString();
 });
 
-server.listen(3000, () =>{
-    console.log("Listening on 3000");
+python.on("close", (code) => {
+    console.log("Child process closed, sending data. ");
 });
+
+app.listen(port);
