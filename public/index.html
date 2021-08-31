@@ -89,14 +89,18 @@ table, th, td{
 
     buildTable(meal_array)
 
-    function buildTable(input){
+    function buildTable(){
       var meal_table = document.getElementById('meal table')
-      for (var i = 0; i < input.length; i++) {
-        var row =`<tr>
-                    <td>${input[i].name}</td>
-                    <td>${input[i].location}</td>
-                  </tr>`
-        meal_table.innerHTML += row
+      var search = document.getElementById('str').value
+      meal_table.innerHTML = ""
+      for (var i = 0; i < meal_array.length; i++) {
+        if(meal_array[i].name.toLowerCase().includes(search.toLowerCase())){
+          row =`<tr>
+                      <td>${meal_array[i].name}</td>
+                      <td>${meal_array[i].location}</td>
+                    </tr>`
+          meal_table.innerHTML += row
+        }
       }
     }
   </script>
