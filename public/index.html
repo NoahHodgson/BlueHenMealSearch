@@ -83,9 +83,20 @@ table, th, td{
       </table>
     </section>
   </div>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js">
+  </script>
   <script>
+    //Make connection
+    var socket = io.connect('http://localhost:8000');
+
+    </script>
+
+  
+  <script>
+
     //FIXME: replace with meal scraper JSON later.
-    var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}]
+    var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
+
 
     buildTable(meal_array)
 
