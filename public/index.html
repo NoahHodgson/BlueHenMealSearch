@@ -95,8 +95,16 @@ table, th, td{
   <script>
 
     //FIXME: replace with meal scraper JSON later.
-    var meal_array = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
 
+    var meal_array = [];
+    socket.on("meals", function(mealList){
+      meal_array = mealList;
+      buildTable(meal_array);
+
+    });
+      //[{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
+     
+    socket.emit("requestMeals","");
 
     buildTable(meal_array)
 
