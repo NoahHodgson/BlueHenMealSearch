@@ -14,5 +14,8 @@ app.use(express.static(__dirname + '/public'));
 var io = socket(server);
 
 io.on('connection', function(socket){
-    console.log("Made a socket connection", socket.id);
+    console.log("Made a socket connection -- Socket id: ", socket.id, " -- IP: ", socket.request.connection.remoteAddress);
+    socket.on('disconnect', function(){
+        console.log("User has disconnected");
+    });
 });
