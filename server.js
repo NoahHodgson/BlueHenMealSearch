@@ -1,30 +1,18 @@
-//var http = require('http');  
-//var fs = require('fs');  
-var express = require("express");
-const {spawn} = require("child_process");
-port = 8000
+var express = require('express');
+var socket = require('socket.io');
 
-
-
-
-var app = new express();
-var publicDir = require('path').join(__dirname,'/public');
-app.use(express.static(publicDir));
-
-app.get('/',function(request,response){
-    response.sendFile("/public/index.html");
-
+//App setup
+var app = express();
+var server = app.listen(8000, function(){
+    console.log("Listening to requests on port 8000");
 });
 
-var dataToSend;
-const python = spawn("python", [""]);
-python.stdout.on("data", function (data) {
-    console.log();
-    dataToSend = data.toString();
-});
+//Static files
+app.use(express.static(__dirname + '/public'));
 
-python.on("close", (code) => {
-    console.log("Child process closed, sending data. ");
-});
+//Socket setup
+var io = socket(server);
 
-app.listen(port);
+io.on('connection', function(socket){
+    console.log("Made a socket connection", socket.id);
+});
