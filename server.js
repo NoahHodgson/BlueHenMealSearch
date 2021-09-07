@@ -1,6 +1,6 @@
 var express = require('express');
 var socket = require('socket.io');
-//var csvtojson = require('csvtojson');
+var csv = require('csvtojson');
 
 //App setup
 var app = express();
@@ -20,8 +20,15 @@ io.on('connection', function(socket){
     //Send current meals to the client
     socket.on('requestMeals', function(input){
         console.log("Received meal request");
-        obj = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
-        socket.emit('meals', obj);
+        obj = {}
+        csv().fromFile(__dirname+"/MealScraper/results.csv")
+        .then(function(jsonArrayObject){
+            //console.log(jsonArrayObject);
+            socket.emit('meals',jsonArrayObject);
+        });
+        //obj = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
+        //console.log(obj);
+        //socket.emit('meals', obj);
         console.log("Sent meal respone");
 
         
