@@ -98,6 +98,7 @@ table, th, td{
 
     var meal_array = [];
     socket.on("meals", function(mealList){
+      console.log(mealList);
       meal_array = mealList;
       buildTable(meal_array);
 
@@ -113,10 +114,11 @@ table, th, td{
       var search = document.getElementById('str').value
       meal_table.innerHTML = ""
       for (var i = 0; i < meal_array.length; i++) {
-        if(meal_array[i].name.toLowerCase().includes(search.toLowerCase())){
+        if(meal_array[i].item.toLowerCase().includes(search.toLowerCase())){
           row =`<tr>
-                      <td>${meal_array[i].name}</td>
-                      <td>${meal_array[i].location}</td>
+                      <td>${meal_array[i].item}</td>
+                      <td>${meal_array[i].url}</td>
+                      <td>${meal_array[i].Date}</td>
                     </tr>`
           meal_table.innerHTML += row
         }
