@@ -8,8 +8,8 @@ var app = express();
 
 app.use(cors())
 
-var server = app.listen(8000, function(){
-    console.log("Listening to requests on port 8000");
+var server = app.listen(80, function(){
+    console.log("Listening to requests on port 80");
 });
 
 //Static files
