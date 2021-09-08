@@ -8,6 +8,10 @@ var app = express();
 
 app.use(cors())
 
+app.get('/products/:id', function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for all origins!'})
+  })
+
 var server = app.listen(8000, function(){
     console.log("Listening to requests on port 8000");
 });
