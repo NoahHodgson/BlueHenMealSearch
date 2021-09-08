@@ -113,14 +113,30 @@ table, th, td{
       var meal_table = document.getElementById('meal table')
       var search = document.getElementById('str').value
       meal_table.innerHTML = ""
+      var row = ""
       for (var i = 0; i < meal_array.length; i++) {
         if(meal_array[i].item.toLowerCase().includes(search.toLowerCase())){
-          row =`<tr>
+          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/PencaderDiningHall\r\n"){
+            row =`<tr>
                       <td>${meal_array[i].item}</td>
-                      <td>${meal_array[i].url}</td>
-                      <td>${meal_array[i].Date}</td>
+                      <td>Pencader</td>
                     </tr>`
-          meal_table.innerHTML += row
+            meal_table.innerHTML += row
+          }
+          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/RussellDiningHall"){
+            row =`<tr>
+                      <td>${meal_array[i].item}</td>
+                      <td>Russell</td>
+                    </tr>`
+            meal_table.innerHTML += row
+          }
+          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/CaesarRodneyFreshFoodCompany\r\n"){
+            row =`<tr>
+                      <td>${meal_array[i].item}</td>
+                      <td>Ceasar Rodney</td>
+                    </tr>`
+            meal_table.innerHTML += row
+          }
         }
       }
     }
