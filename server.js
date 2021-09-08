@@ -5,6 +5,10 @@ var csv = require('csvtojson');
 //App setup
 var app = express();
 
+app.use(cors({
+    origin: 'bluehenmealsearch.com'
+}));
+
 var server = app.listen(80, function(){
     console.log("Listening to requests on port 80");
 });
