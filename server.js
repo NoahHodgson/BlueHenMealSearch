@@ -5,15 +5,17 @@ var csv = require('csvtojson');
 //App setup
 var app = express();
 
-app.use(cors({
-    origin: 'bluehenmealsearch.com'
-}));
+app.use(cors());
 
 var server = app.listen(80, function(){
     console.log("Listening to requests on port 80");
 });
-var io = require('socket.io')(server);
-
+var io = require('socket.io')(server,{
+    cors:{
+        origin:"*",
+        methods: ["GET", "POST"]
+    }
+    });
 
 //Static files
 app.use(express.static(__dirname + '/public'));
