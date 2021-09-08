@@ -1,9 +1,13 @@
 var express = require('express');
 var socket = require('socket.io');
+var cors = require('cors')
 var csv = require('csvtojson');
 
 //App setup
 var app = express();
+
+app.use(cors())
+
 var server = app.listen(8000, function(){
     console.log("Listening to requests on port 8000");
 });
