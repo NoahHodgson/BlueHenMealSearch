@@ -6,10 +6,7 @@ var csv = require('csvtojson');
 //App setup
 var app = express();
 
-app.get('/products/:id', function (req, res, next) {
-    res.json({msg: 'This is CORS-enabled for all origins!'})
-  })
-
+app.use(cors())
 
 var server = app.listen(8000, function(){
     console.log("Listening to requests on port 8000");
