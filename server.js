@@ -6,11 +6,13 @@ var csv = require('csvtojson');
 //App setup
 var app = express();
 
-app.use(cors())
-
-app.get('/products/:id', function (req, res, next) {
-    res.json({msg: 'This is CORS-enabled for all origins!'})
-  })
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 var server = app.listen(8000, function(){
     console.log("Listening to requests on port 8000");
