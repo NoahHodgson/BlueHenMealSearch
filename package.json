@@ -1,0 +1,16 @@
+{
+	"name": "BlueHenMealSearch",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+	  "httpsTest": "node httpsTest.js"
+	},
+	"author": "",
+	"dependencies": {
+	  "cors": "^2.8.5",
+	  "csvtojson": "^2.0.10",
+	  "express": "^4.17.1",
+	  "socket.io": "^4.2.0"
+	}
+  }
