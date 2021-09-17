@@ -112,33 +112,37 @@ table, th, td{
     function buildTable(){
       var meal_table = document.getElementById('meal table')
       var search = document.getElementById('str').value
-      meal_table.innerHTML = ""
+      var table = "";
       var row = ""
-      for (var i = 0; i < meal_array.length; i++) {
-        if(meal_array[i].item.toLowerCase().includes(search.toLowerCase())){
-          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/PencaderDiningHall\r\n"){
-            row =`<tr>
-                      <td>${meal_array[i].item}</td>
-                      <td>Pencader</td>
-                    </tr>`
-            meal_table.innerHTML += row
-          }
-          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/RussellDiningHall"){
-            row =`<tr>
-                      <td>${meal_array[i].item}</td>
-                      <td>Russell</td>
-                    </tr>`
-            meal_table.innerHTML += row
-          }
-          if(meal_array[i].url==="https://udel.campusdish.com/LocationsAndMenus/CaesarRodneyFreshFoodCompany\r\n"){
-            row =`<tr>
-                      <td>${meal_array[i].item}</td>
-                      <td>Ceasar Rodney</td>
-                    </tr>`
-            meal_table.innerHTML += row
-          }
+      const matched = meal_array.filter(meal => meal.item.toLowerCase().includes(search.toLowerCase()));
+      matched.forEach((meal) => {
+        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/PencaderDiningHall\r\n"){
+          row =`<tr data-id=${meal.item}>
+                    <td>${meal.item}</td>
+                    <td>Pencader</td>
+                  </tr>`
+          table += row
         }
-      }
+        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/RussellDiningHall"){
+          row =`<tr data-id=${meal.item}>
+                    <td>${meal.item}</td>
+                    <td>Russell</td>
+                  </tr>`
+          table += row
+        }
+        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/CaesarRodneyFreshFoodCompany\r\n"){
+          row =`<tr data-id=${meal.item}>
+                    <td>${meal.item}</td>
+                    <td>Ceasar Rodney</td>
+                  </tr>`
+          table += row
+        }
+      })
+      meal_table.innerHTML = table;
+    }
+
+
+    function searchTable(){
     }
   </script>
 <!-- End Document
