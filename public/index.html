@@ -116,21 +116,21 @@ table, th, td{
       var row = ""
       const matched = meal_array.filter(meal => meal.item.toLowerCase().includes(search.toLowerCase()));
       matched.forEach((meal) => {
-        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/PencaderDiningHall\r\n"){
+        if(meal.url.includes("Pencader")){
           row =`<tr data-id=${meal.item}>
                     <td>${meal.item}</td>
                     <td>Pencader</td>
                   </tr>`
           table += row
         }
-        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/RussellDiningHall"){
+        if(meal.url.includes("Russell")){
           row =`<tr data-id=${meal.item}>
                     <td>${meal.item}</td>
                     <td>Russell</td>
                   </tr>`
           table += row
         }
-        if(meal.url==="https://udel.campusdish.com/LocationsAndMenus/CaesarRodneyFreshFoodCompany\r\n"){
+        if(meal.url.includes("Caesar")){
           row =`<tr data-id=${meal.item}>
                     <td>${meal.item}</td>
                     <td>Ceasar Rodney</td>
