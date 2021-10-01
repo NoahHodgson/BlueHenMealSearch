@@ -31,18 +31,22 @@ io.sockets.on('connection', function (socket) {
     socket.on('requestMeals', function (input) {
         console.log("Received meal request");
         obj = {}
-        csv().fromFile(__dirname + "/MealScraper/results.csv")
+        csv().fromFile(__dirname + "/MealScraper/b_results.csv")
             .then(function (jsonArrayObject) {
                 //console.log(jsonArrayObject);
-                socket.emit('meals', jsonArrayObject);
+                socket.emit('b_meals', jsonArrayObject);
             });
-        //obj = [{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
-        //console.log(obj);
-        //socket.emit('meals', obj);
-        console.log("Sent meal respone");
-
-
-
+        csv().fromFile(__dirname + "/MealScraper/l_results.csv")
+            .then(function (jsonArrayObject) {
+                //console.log(jsonArrayObject);
+                socket.emit('l_meals', jsonArrayObject);
+            });
+        csv().fromFile(__dirname + "/MealScraper/d_results.csv")
+            .then(function (jsonArrayObject) {
+                //console.log(jsonArrayObject);
+                socket.emit('d_meals', jsonArrayObject);
+            });
+        console.log("Sent meal responses");
     });
 
 

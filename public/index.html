@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
@@ -105,7 +104,7 @@
 
   <div class="container">
     <section class="pre-results">
-      <h3 style="text-align: center; padding-top: 10px;">Results:</h3>
+      <h3 id="Results" style="text-align: center; padding-top: 10px;">Results:</h3>
       <table>
         <tr>
           <th>
@@ -131,22 +130,62 @@
 
 
   <script>
+    var d = new Date();
+    var hour = d.getHours();
+    var b_meal_array = [];
+    var l_meal_array = [];
+    var d_meal_array = [];
+    var meal_array;
+    
+      socket.on("b_meals", function (mealList) {
+        console.log(mealList);
+        b_meal_array = mealList;
+      });
+    
+      socket.on("l_meals", function (mealList) {
+        console.log(mealList);
+        l_meal_array = mealList;
+      });
 
-    //FIXME: replace with meal scraper JSON later.
-
-    var meal_array = [];
-    socket.on("meals", function (mealList) {
-      console.log(mealList);
-      meal_array = mealList;
-      buildTable(meal_array);
-
-    });
-    //[{'name':'Chicken Salad', 'location':'Pencader'},{'name':'Chicken Parm', 'location':'Pencader'}];
+      socket.on("d_meals", function (mealList) {
+        console.log(mealList);
+        d_meal_array = mealList;
+      });
 
     socket.emit("requestMeals", "");
 
-    buildTable(meal_array)
+    //building the table depending on the time of day
+    if(hour<11){
+      grabBreakfast()
+    }
+    else if(hour>11 && hour<2){
+      grabLunch()
+    }
+    else{
+      grabDinner()
+    }
 
+    //changes time of day
+    function grabBreakfast(){
+      document.getElementById("Results").innerHTML = "Breakfast Results";
+      meal_array = b_meal_array;
+      buildTable();
+    }
+
+    function grabLunch(){
+      document.getElementById("Results").innerHTML = "Lunch Results";
+      meal_array = l_meal_array;
+      buildTable();
+    }
+
+    function grabDinner(){
+      document.getElementById("Results").innerHTML = "Dinner Results";
+      meal_array = d_meal_array;
+      buildTable();
+    }
+
+
+    //build the table in Javascript
     function buildTable() {
       var meal_table = document.getElementById('meal table')
       var search = document.getElementById('str').value
@@ -171,7 +210,7 @@
         if (meal.url.includes("Caesar")) {
           row = `<tr data-id=${meal.item}>
                     <td>${meal.item}</td>
-                    <td>Ceasar Rodney</td>
+                    <td>Caesar Rodney</td>
                   </tr>`
           table += row
         }
@@ -180,8 +219,7 @@
     }
 
 
-    function searchTable() {
-    }
+    function searchTable() {}
   </script>
   <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
