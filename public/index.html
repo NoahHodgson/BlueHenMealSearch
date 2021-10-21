@@ -124,6 +124,19 @@
 					</ul>
 				</div>
 			</div>
+			<div class="col">
+				<div class="dropdown">
+
+					<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownHallButton" data-bs-toggle="dropdown" aria-expanded="false">
+						Common meal filter
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" style="color: white;">
+						<li><a href="#" onclick="filterDiningHall('chicken')">Chicken</a></li>
+						<li><a href="#" onclick="filterDiningHall('beef')">Beef</a></li>
+						<li><a href="#" onclick="filterDiningHall('salad')">Salad</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		</section>
   </div>
@@ -190,6 +203,20 @@
     else{
       grabDinner()
     }
+
+	function filterCommonMeal(filter){
+
+		meal_array = meal_array
+		.filter(e => e.item.toLowerCase().includes(filter.toLowerCase()))
+		.map(e => 
+		`<tr data-id=${meal.item}>
+			<td>${meal.item}</td>
+			<td>Pencader</td>
+		  </tr>`
+		).join('');
+		buildTable();
+
+	}
 
 	function filterDiningHall(hall){
 
