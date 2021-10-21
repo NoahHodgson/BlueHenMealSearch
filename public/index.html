@@ -73,33 +73,72 @@
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <section class="search">
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #004aad;">
-        <div class="container-fluid">
-          <a class="navbar-brand mx-auto" href="index.html">
-            <img src="/public/images/BHMS_Banner.png" alt="Blue Hen Meal Search">
-          </a>
-        </div>
-      </nav>
-      <div class="input-group mb-3" style="justify-content: center;">
-        <label for="str">
-          <h3>Search...</h3>
-        </label>
-        <input class="form-control" type="text" id="str" name="str_name" style="max-width: 20%;"
-          oninput="buildTable();">
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1"
-          data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-          Select time of day
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="color: white;">
-          <li><p class="dropdown-item" onclick="grabBreakfast()">Breakfast</p></li>
-          <li><p class="dropdown-item" onclick="grabLunch()">Lunch</p></li>
-          <li><p class="dropdown-item" onclick="grabDinner()">Dinner</p></li>
-        </ul>
-      </div>
-    </section>
+		<section class="search">
+		<div class="row">
+			<div class="col">
+				<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #004aad;">
+					<div class="container-fluid">
+					<a class="navbar-brand mx-auto" href="index.html">
+						<img src="/public/images/BHMS_Banner.png" alt="Blue Hen Meal Search">
+					</a>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col">
+				<div class="input-group mb-3" style="justify-content: center;">
+					<label for="str">
+					<h3>Search...</h3>
+					</label>
+					<input class="form-control" type="text" id="str" name="str_name" style="max-width: 20%;"
+					oninput="buildTable();">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="dropdown">
+					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1"
+					data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+					Select time of day
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="color: white;">
+					<li><p class="dropdown-item" onclick="grabBreakfast()">Breakfast</p></li>
+					<li><p class="dropdown-item" onclick="grabLunch()">Lunch</p></li>
+					<li><p class="dropdown-item" onclick="grabDinner()">Dinner</p></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="dropdown">
+
+					<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownHallButton" data-bs-toggle="dropdown" aria-expanded="false">
+						Filter by dining hall
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" style="color: white;">
+						<li><a href="#" onclick="filterDiningHall('Russell')">Russell</a></li>
+						<li><a href="#" onclick="filterDiningHall('Caesar Rodney')">Caesar Rodney</a></li>
+						<li><a href="#" onclick="filterDiningHall('Pencader')">Pencader</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="dropdown">
+
+					<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownHallButton" data-bs-toggle="dropdown" aria-expanded="false">
+						Common meal filter
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2" style="color: white;">
+						<li><a href="#" onclick="filterCommonMeal('chicken')">Chicken</a></li>
+						<li><a href="#" onclick="filterCommonMeal('beef')">Beef</a></li>
+						<li><a href="#" onclick="filterCommonMeal('salad')">Salad</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</section>
   </div>
 
   <div class="container">
@@ -164,6 +203,35 @@
     else{
       grabDinner()
     }
+
+	function filterCommonMeal(filter){
+
+		meal_array = meal_array
+		.filter(e => e.item.toLowerCase().includes(filter.toLowerCase()))
+		.map(e => 
+		`<tr data-id=${meal.item}>
+			<td>${meal.item}</td>
+			<td>Pencader</td>
+		  </tr>`
+		).join('');
+		buildTable();
+
+	}
+
+	function filterDiningHall(hall){
+
+		meal_array = meal_array
+		.filter(e => e.url.includes(hall))
+		.map(e => 
+		`<tr data-id=${meal.item}>
+			<td>${meal.item}</td>
+			<td>Pencader</td>
+		  </tr>`
+		)
+		.join('');
+		buildTable();
+
+	}
 
     //changes time of day
     function grabBreakfast(){
